@@ -1,4 +1,4 @@
-package jp.co.olv.choi.issuerappclonemvvm;
+package jp.co.olv.choi.issuerappclonemvvm.web;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;

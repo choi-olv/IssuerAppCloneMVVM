@@ -1,4 +1,4 @@
-package jp.co.olv.choi.issuerappclonemvvm;
+package jp.co.olv.choi.issuerappclonemvvm.realm;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

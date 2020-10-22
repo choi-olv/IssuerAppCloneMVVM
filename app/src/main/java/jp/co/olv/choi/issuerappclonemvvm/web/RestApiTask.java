@@ -1,4 +1,4 @@
-package jp.co.olv.choi.issuerappclonemvvm;
+package jp.co.olv.choi.issuerappclonemvvm.web;
 
 import android.os.AsyncTask;
 import android.util.Log;

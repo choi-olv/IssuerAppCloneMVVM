@@ -2,20 +2,21 @@ package jp.co.olv.choi.issuerappclonemvvm;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import jp.co.olv.choi.issuerappclonemvvm.realm.MyMigration;
+import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
 import lombok.SneakyThrows;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,18 +57,12 @@ public class MainActivity extends AppCompatActivity {
     // LiveDataの挙動確認のために仮実装
     @SneakyThrows
     @OnClick(R.id.testButton) void clickButton() {
-        Realm realm = Realm.getDefaultInstance();
-        final List<commentsResponse> responses = (List<commentsResponse>) new RestApiTask().execute().get();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                // 一旦データをリセットしてから入れる
-                realm.deleteAll();
-                for (Integer i = 0; i < responses.size(); i++) {
-                    commentsResponse response = responses.get(i);
-                    realm.copyToRealmOrUpdate(new PayDetail(i, response.content.substring(0, 10), response.id, response.createdAt, response.PostId));
-                }
-            }
-        });
+        payDetailViewModel.getAll();
+    }
+
+    // LiveDataの挙動確認のために仮実装
+    @OnLongClick(R.id.testButton) boolean longClickButton() {
+        payDetailViewModel.delete(1);
+        return true;
     }
 }

@@ -1,38 +1,26 @@
 package jp.co.olv.choi.issuerappclonemvvm;
 
 import android.arch.lifecycle.ViewModel;
-import java.util.List;
+
 import io.realm.Realm;
-import io.realm.RealmResults;
-import lombok.SneakyThrows;
+import jp.co.olv.choi.issuerappclonemvvm.realm.LiveRealmData;
+import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
 
 public class PayDetailViewModel extends ViewModel {
 
     private Realm realm;
+    private PayDetailRepository repository = new PayDetailRepository();
 
     public PayDetailViewModel() {
         realm = Realm.getDefaultInstance();
     }
 
-    @SneakyThrows
     public LiveRealmData<PayDetail> getAll() {
-        final List<commentsResponse> responses = (List<commentsResponse>) new RestApiTask().execute().get();
+        return repository.getAll(realm);
+    }
 
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                // 一旦データをリセットしてから入れる
-                realm.deleteAll();
-                for (Integer i = 0; i < responses.size(); i++) {
-                    commentsResponse response = responses.get(i);
-                    realm.copyToRealmOrUpdate(new PayDetail(i, response.content.substring(0, 10), response.id, response.createdAt, response.PostId));
-                }
-            }
-        });
-
-        RealmResults<PayDetail> payDetailsFromRealm = realm.where(PayDetail.class).findAll();
-
-        return new LiveRealmData<PayDetail>(payDetailsFromRealm);
+    public LiveRealmData<PayDetail> delete(int position) {
+        return repository.delete(realm, position);
     }
 
     @Override

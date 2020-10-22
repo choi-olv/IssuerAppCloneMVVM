@@ -1,4 +1,4 @@
-package jp.co.olv.choi.issuerappclonemvvm;
+package jp.co.olv.choi.issuerappclonemvvm.web;
 
 public class commentsResponse {
     public String id;
