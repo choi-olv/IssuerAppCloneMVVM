@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 
 public class PayDetailRepository {
 
+    // APIより全レコードを再取得
     @SneakyThrows
     public LiveRealmData<PayDetail> getAll(Realm realm) {
         final List<commentsResponse> responses = (List<commentsResponse>) new RestApiTask().execute().get();
@@ -33,7 +34,7 @@ public class PayDetailRepository {
         return new LiveRealmData<PayDetail>(payDetailsFromRealm);
     }
 
-    // 1つの
+    // 1つのレコードを削除
     public LiveRealmData<PayDetail> delete(Realm realm, final int position) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override

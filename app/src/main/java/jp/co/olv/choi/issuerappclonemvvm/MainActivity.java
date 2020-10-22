@@ -4,29 +4,26 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import jp.co.olv.choi.issuerappclonemvvm.realm.MyMigration;
 import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
-import lombok.SneakyThrows;
 
 public class MainActivity extends AppCompatActivity {
 
     private  PayDetailViewModel payDetailViewModel;
 
-    @BindView(R.id.testTextView)
-    TextView testTextView;
-    @BindView(R.id.testButton)
-    Button testButton;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +46,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable RealmResults<PayDetail> payDetail) {
                 // TODO 支払明細のリストビュー処理に差し替える。
-                testTextView.setText("更新されました。");
             }
         });
-    }
 
-    // LiveDataの挙動確認のために仮実装
-    @SneakyThrows
-    @OnClick(R.id.testButton) void clickButton() {
-        payDetailViewModel.getAll();
-    }
+        MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(fragmentPagerAdapter);
 
-    // LiveDataの挙動確認のために仮実装
-    @OnLongClick(R.id.testButton) boolean longClickButton() {
-        payDetailViewModel.delete(1);
-        return true;
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

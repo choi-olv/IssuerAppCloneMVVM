@@ -27,7 +27,7 @@ dependencies {
 
     // livedata
     implementation 'android.arch.lifecycle:extensions:1.1.1'
-    annotationProcessor  'android.arch.lifecycle:compiler:1.1.1'
+    annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.12'
@@ -40,6 +40,9 @@ dependencies {
     // retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
+    // TapLayout
+    implementation 'com.android.support:design:+'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

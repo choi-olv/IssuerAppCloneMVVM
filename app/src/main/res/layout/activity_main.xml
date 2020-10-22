@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="25dp">
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="LiveData(Observer)の挙動確認"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            style="@style/Widget.Design.TabLayout" />
 
-    <TextView
-        android:id="@+id/testTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="初期状態"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout >
