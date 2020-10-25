@@ -14,8 +14,8 @@ public class PayDetailRepository {
 
     // APIより全レコードを再取得
     @SneakyThrows
-    public LiveRealmData<PayDetail> getAll(Realm realm) {
-        final List<commentsResponse> responses = (List<commentsResponse>) new RestApiTask().execute().get();
+    public LiveRealmData<PayDetail> getAll(Realm realm, Integer postId) {
+        final List<commentsResponse> responses = (List<commentsResponse>) new RestApiTask().execute(postId).get();
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override

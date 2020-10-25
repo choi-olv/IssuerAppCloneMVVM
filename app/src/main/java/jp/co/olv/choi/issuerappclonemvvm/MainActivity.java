@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         payDetailViewModel = ViewModelProviders.of(this).get(PayDetailViewModel.class);
 
         // 支払明細情報の更新を監視
-        payDetailViewModel.getAll().observe(this, new Observer<RealmResults<PayDetail>>() {
+        payDetailViewModel.getAll(2).observe(this, new Observer<RealmResults<PayDetail>>() {
             @Override
             public void onChanged(@Nullable RealmResults<PayDetail> payDetail) {
                 // TODO 支払明細のリストビュー処理に差し替える。
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(fragmentPagerAdapter);
-
         tabLayout.setupWithViewPager(viewPager);
     }
 }

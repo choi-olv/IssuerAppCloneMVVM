@@ -6,8 +6,23 @@
     tools:context=".LeftFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="パラメータ入力欄が入るタブ" />
+        android:id="@+id/parameterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="パラメータ" />
+
+    <EditText
+        android:id="@+id/parameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/execute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="API実行" />
 
 </FrameLayout>

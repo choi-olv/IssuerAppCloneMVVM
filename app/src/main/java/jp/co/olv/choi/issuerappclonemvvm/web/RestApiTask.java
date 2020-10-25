@@ -10,14 +10,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestApiTask extends AsyncTask {
+public class RestApiTask extends AsyncTask<Integer, Void, List<commentsResponse>> {
 
     @Override
-    protected List<commentsResponse> doInBackground(Object[] objects){
+    protected List<commentsResponse> doInBackground(Integer... postId){
         RequestApiService apiService = HttpClient.getRequestApiService();
-        Integer postId = 2;
 
-        apiService.getCommentsByPostId(postId).enqueue(new Callback<List<commentsResponse>>() {
+        apiService.getCommentsByPostId(postId[0]).enqueue(new Callback<List<commentsResponse>>() {
             @Override
             public void onResponse(Call<List<commentsResponse>> call, Response<List<commentsResponse>> response) {
                 if (response.isSuccessful()) {
@@ -33,7 +32,7 @@ public class RestApiTask extends AsyncTask {
         });
 
         try {
-            return apiService.getCommentsByPostId(postId).execute().body();
+            return apiService.getCommentsByPostId(postId[0]).execute().body();
         } catch (IOException e) {
         }
         return null;

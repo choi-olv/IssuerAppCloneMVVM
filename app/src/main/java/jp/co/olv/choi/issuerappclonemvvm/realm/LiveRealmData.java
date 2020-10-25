@@ -5,8 +5,10 @@ import android.arch.lifecycle.MutableLiveData;
 import io.realm.RealmChangeListener;
 import io.realm.RealmModel;
 import io.realm.RealmResults;
+import lombok.Getter;
 
 // RealmResultsをLiveDataとして扱えるようにするラッパークラス
+@Getter
 public class LiveRealmData<T extends RealmModel> extends MutableLiveData<RealmResults<T>> {
 
     private RealmResults<T> results;

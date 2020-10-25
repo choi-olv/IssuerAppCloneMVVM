@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".RightFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/PayDetailRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="RecyclerViewが入るタブ" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

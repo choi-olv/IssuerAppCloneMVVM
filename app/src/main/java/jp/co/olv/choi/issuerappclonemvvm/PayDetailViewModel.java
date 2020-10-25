@@ -15,8 +15,8 @@ public class PayDetailViewModel extends ViewModel {
         realm = Realm.getDefaultInstance();
     }
 
-    public LiveRealmData<PayDetail> getAll() {
-        return repository.getAll(realm);
+    public LiveRealmData<PayDetail> getAll(Integer postId) {
+        return repository.getAll(realm, postId);
     }
 
     public LiveRealmData<PayDetail> delete(int position) {
