@@ -1,4 +1,4 @@
-package jp.co.olv.choi.issuerappclonemvvm;
+package jp.co.olv.choi.issuerappclonemvvm.Taplayout;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -12,10 +12,12 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.co.olv.choi.issuerappclonemvvm.PayDetailViewModel;
+import jp.co.olv.choi.issuerappclonemvvm.R;
 
 public class LeftFragment extends Fragment {
 
-    private  PayDetailViewModel payDetailViewModel;
+    private PayDetailViewModel payDetailViewModel;
 
     @BindView(R.id.parameter)
     EditText editText;

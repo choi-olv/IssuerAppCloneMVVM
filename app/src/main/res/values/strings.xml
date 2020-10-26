@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">IssuerAppCloneMVVM</string>
+
+    <string name="left_tab_title">パラメータ入力</string>
+    <string name="right_tab_title">RecyclerView</string>
+
+    <string name="detail_list_shop_name">店名</string>
+    <string name="detail_list_amount">金額</string>
+    <string name="detail_list_pay_date">支払日</string>
+    <string name="detail_list_pay_count">支払回数</string>
 </resources>

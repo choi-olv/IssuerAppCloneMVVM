@@ -1,4 +1,4 @@
-package jp.co.olv.choi.issuerappclonemvvm;
+package jp.co.olv.choi.issuerappclonemvvm.RecyclerView;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import jp.co.olv.choi.issuerappclonemvvm.R;
 import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
 
 public class PayDetailRecyclerViewAdapter extends RecyclerView.Adapter<PayDetailViewHolder> {
@@ -24,7 +25,10 @@ public class PayDetailRecyclerViewAdapter extends RecyclerView.Adapter<PayDetail
 
     @Override
     public void onBindViewHolder(PayDetailViewHolder holder, int position) {
-        holder.detailView.setText(list.get(position).getShopName());
+        holder.shopNameView.setText(list.get(position).getShopName());
+        holder.amountView.setText(list.get(position).getAmount() + "円");
+        holder.payDateView.setText(list.get(position).getPayDate());
+        holder.payCountView.setText(list.get(position).getPayCount() + "回払い");
     }
 
     @Override
