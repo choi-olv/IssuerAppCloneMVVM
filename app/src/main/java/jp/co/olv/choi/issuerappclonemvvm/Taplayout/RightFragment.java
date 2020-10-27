@@ -10,25 +10,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import jp.co.olv.choi.issuerappclonemvvm.RecyclerView.PayDetailRecyclerViewAdapter;
 import jp.co.olv.choi.issuerappclonemvvm.PayDetailViewModel;
 import jp.co.olv.choi.issuerappclonemvvm.R;
+import jp.co.olv.choi.issuerappclonemvvm.RecyclerView.PayDetailRecyclerViewAdapter;
 import jp.co.olv.choi.issuerappclonemvvm.realm.LiveRealmData;
 import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
 
 public class RightFragment extends Fragment {
 
     private PayDetailViewModel payDetailViewModel;
+    private List<PayDetail> currentSelectedItems = new ArrayList<>();
 
     @BindView(R.id.PayDetailRecyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.removeButtonInRightTap)
+    Button removeButton;
 
     public RightFragment() {
     }
@@ -54,7 +60,17 @@ public class RightFragment extends Fragment {
             public void onChanged(@Nullable RealmResults<PayDetail> payDetails) {
                 Realm realm = Realm.getDefaultInstance();
                 List<PayDetail> payDetailList = realm.copyFromRealm(payDetails);
-                PayDetailRecyclerViewAdapter recyclerViewAdapter = new PayDetailRecyclerViewAdapter(payDetailList);
+                PayDetailRecyclerViewAdapter recyclerViewAdapter = new PayDetailRecyclerViewAdapter(payDetailList, new OnItemCheckListener() {
+                    @Override
+                    public void onItemCheck(PayDetail item) {
+                        currentSelectedItems.add(item);
+                    }
+
+                    @Override
+                    public void onItemUncheck(PayDetail item) {
+                        currentSelectedItems.remove(item);
+                    }
+                });
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
         });
@@ -64,7 +80,17 @@ public class RightFragment extends Fragment {
         RealmResults<PayDetail> payDetails = payDetailsLiveData.getResults();
         Realm realm = Realm.getDefaultInstance();
         List<PayDetail> payDetailList = realm.copyFromRealm(payDetails);
-        PayDetailRecyclerViewAdapter recyclerViewAdapter = new PayDetailRecyclerViewAdapter(payDetailList);
+        PayDetailRecyclerViewAdapter recyclerViewAdapter = new PayDetailRecyclerViewAdapter(payDetailList, new OnItemCheckListener() {
+            @Override
+            public void onItemCheck(PayDetail item) {
+                currentSelectedItems.add(item);
+            }
+
+            @Override
+            public void onItemUncheck(PayDetail item) {
+                currentSelectedItems.remove(item);
+            }
+        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
@@ -72,5 +98,9 @@ public class RightFragment extends Fragment {
         recyclerView.setAdapter(recyclerViewAdapter);
 
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @OnClick(R.id.removeButtonInRightTap) void removeCheckedItem() {
+        payDetailViewModel.delete(currentSelectedItems);
     }
 }

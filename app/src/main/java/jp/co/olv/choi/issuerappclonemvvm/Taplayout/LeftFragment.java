@@ -22,7 +22,13 @@ public class LeftFragment extends Fragment {
     @BindView(R.id.parameter)
     EditText editText;
     @BindView(R.id.execute)
-    Button button;
+    Button executeButton;
+//    左タブ上のRecyclerView項目削除機能の追加保留
+//    @BindView(R.id.removeButtonInLeftTap)
+//    Button removeButton;
+//    @Nullable
+//    @BindView(R.id.PayDetailRecyclerView)
+//    RecyclerView recyclerView;
 
     public LeftFragment() {
     }
@@ -49,4 +55,13 @@ public class LeftFragment extends Fragment {
         int postId = Integer.parseInt(editText.getText().toString());
         payDetailViewModel.getAll(postId);
     }
+
+//    左タブ上のRecyclerView項目削除機能の追加保留
+//    @OnClick(R.id.removeButtonInLeftTap) void removeCheckedItem() {
+//
+//        RecyclerView recyclerView = getActivity().findViewById(R.id.PayDetailRecyclerView);
+//        PayDetailRecyclerViewAdapter recyclerViewAdapter = (PayDetailRecyclerViewAdapter) recyclerView.getAdapter();
+//        List<PayDetail> items = recyclerViewAdapter.;
+//        payDetailViewModel.delete(items);
+//    }
 }

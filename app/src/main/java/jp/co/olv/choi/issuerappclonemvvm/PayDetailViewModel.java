@@ -2,6 +2,8 @@ package jp.co.olv.choi.issuerappclonemvvm;
 
 import android.arch.lifecycle.ViewModel;
 
+import java.util.List;
+
 import io.realm.Realm;
 import jp.co.olv.choi.issuerappclonemvvm.realm.LiveRealmData;
 import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
@@ -19,8 +21,8 @@ public class PayDetailViewModel extends ViewModel {
         return repository.getAll(realm, postId);
     }
 
-    public LiveRealmData<PayDetail> delete(int position) {
-        return repository.delete(realm, position);
+    public LiveRealmData<PayDetail> delete(List<PayDetail> items) {
+        return repository.delete(realm, items);
     }
 
     @Override

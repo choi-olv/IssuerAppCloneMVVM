@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import jp.co.olv.choi.issuerappclonemvvm.R;
+import jp.co.olv.choi.issuerappclonemvvm.Taplayout.OnItemCheckListener;
 import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
 
 public class PayDetailRecyclerViewAdapter extends RecyclerView.Adapter<PayDetailViewHolder> {
-    private List<PayDetail> list;
 
-    public PayDetailRecyclerViewAdapter(List<PayDetail> list) {
-        this.list = list;
+    private List<PayDetail> items;
+    private OnItemCheckListener onItemCheckListener;
+
+    public PayDetailRecyclerViewAdapter(List<PayDetail> items, OnItemCheckListener onItemCheckListener) {
+        this.items = items;
+        this.onItemCheckListener = onItemCheckListener;
     }
 
     @Override
@@ -24,15 +28,29 @@ public class PayDetailRecyclerViewAdapter extends RecyclerView.Adapter<PayDetail
     }
 
     @Override
-    public void onBindViewHolder(PayDetailViewHolder holder, int position) {
-        holder.shopNameView.setText(list.get(position).getShopName());
-        holder.amountView.setText(list.get(position).getAmount() + "円");
-        holder.payDateView.setText(list.get(position).getPayDate());
-        holder.payCountView.setText(list.get(position).getPayCount() + "回払い");
+    public void onBindViewHolder(final PayDetailViewHolder holder, int position) {
+        holder.shopNameView.setText(items.get(position).getShopName());
+        holder.amountView.setText(items.get(position).getAmount() + "円");
+        holder.payDateView.setText(items.get(position).getPayDate());
+        holder.payCountView.setText(items.get(position).getPayCount() + "回払い");
+
+        // チェックボックスの動作
+        final PayDetail currentItem = items.get(position);
+        holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.checkBox.setChecked(!holder.checkBox.isChecked());
+                if (holder.checkBox.isChecked()) {
+                    onItemCheckListener.onItemCheck(currentItem);
+                } else {
+                    onItemCheckListener.onItemUncheck(currentItem);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return items.size();
     }
 }

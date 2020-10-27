@@ -25,4 +25,13 @@
         android:layout_gravity="right"
         android:text="API実行" />
 
+    <!--左タブ上のRecyclerView項目削除機能の追加保留-->
+    <!--<Button-->
+        <!--android:id="@+id/removeButtonInLeftTap"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="45dp"-->
+        <!--android:text="選択した項目を削除" />-->
+
 </FrameLayout>

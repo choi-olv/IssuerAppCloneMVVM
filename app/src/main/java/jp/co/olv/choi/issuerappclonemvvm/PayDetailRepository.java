@@ -34,13 +34,15 @@ public class PayDetailRepository {
         return new LiveRealmData<PayDetail>(payDetailsFromRealm);
     }
 
-    // 1つのレコードを削除
-    public LiveRealmData<PayDetail> delete(Realm realm, final int position) {
+    // リストに含まれるレコードを削除
+    public LiveRealmData<PayDetail> delete(Realm realm, final List<PayDetail> items) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                RealmResults<PayDetail> payDetailsFromRealm = realm.where(PayDetail.class).equalTo("id", position).findAll();
-                payDetailsFromRealm.deleteAllFromRealm();
+                for (PayDetail item: items) {
+                    RealmResults<PayDetail> payDetailsFromRealm = realm.where(PayDetail.class).equalTo("id", item.getId()).findAll();
+                    payDetailsFromRealm.deleteAllFromRealm();
+                }
             }
         });
 

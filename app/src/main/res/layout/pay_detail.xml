@@ -23,6 +23,7 @@
         android:id="@+id/detail_item_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
         android:text="@string/detail_list_amount"
         android:textColor="@android:color/black"
         android:textSize="16sp"
@@ -44,11 +45,21 @@
         android:id="@+id/detail_item_pay_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
         android:text="@string/detail_list_pay_count"
         android:textAllCaps="false"
         android:textColor="#6f6f6f"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
