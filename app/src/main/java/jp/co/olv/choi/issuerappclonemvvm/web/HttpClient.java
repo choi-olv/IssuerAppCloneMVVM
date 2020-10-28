@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpClient {
+
     private static final String URL = "https://koreanjson.com/";
 
     private static final OkHttpClient client = new OkHttpClient.Builder()

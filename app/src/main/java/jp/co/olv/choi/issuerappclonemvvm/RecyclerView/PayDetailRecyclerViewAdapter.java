@@ -29,6 +29,8 @@ public class PayDetailRecyclerViewAdapter extends RecyclerView.Adapter<PayDetail
 
     @Override
     public void onBindViewHolder(final PayDetailViewHolder holder, int position) {
+
+        // ViewHolderのビューの表示内容をセット
         holder.shopNameView.setText(items.get(position).getShopName());
         holder.amountView.setText(items.get(position).getAmount() + "円");
         holder.payDateView.setText(items.get(position).getPayDate());

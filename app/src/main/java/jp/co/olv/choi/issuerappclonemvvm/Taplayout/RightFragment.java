@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +32,12 @@ public class RightFragment extends Fragment {
 
     @BindView(R.id.PayDetailRecyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.removeButtonInRightTap)
-    Button removeButton;
-
-    public RightFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_right, container, false);
+        // ButterKnife連携
         ButterKnife.bind(this, view);
 
         return view;
@@ -50,12 +45,15 @@ public class RightFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // ViewModelのインスタンス生成
         payDetailViewModel = ViewModelProviders.of(this).get(PayDetailViewModel.class);
+        // ViewModelから支払明細データのLiveDataを取得
+        LiveRealmData<PayDetail> payDetailsLiveData = payDetailViewModel.getAll(2);
 
-        // 支払明細情報の更新を監視
-        payDetailViewModel.getAll(2).observe(this, new Observer<RealmResults<PayDetail>>() {
+        // 支払明細データの更新を監視
+        payDetailsLiveData.observe(this, new Observer<RealmResults<PayDetail>>() {
             @Override
             public void onChanged(@Nullable RealmResults<PayDetail> payDetails) {
                 Realm realm = Realm.getDefaultInstance();
@@ -71,12 +69,13 @@ public class RightFragment extends Fragment {
                         currentSelectedItems.remove(item);
                     }
                 });
+
+                // RecyclerViewにデータ反映
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
         });
 
-        // RecyclerViewにデータ反映
-        LiveRealmData<PayDetail> payDetailsLiveData = payDetailViewModel.getAll(2);
+        // LiveDataをもとにRecyclerViewのアダプタ生成
         RealmResults<PayDetail> payDetails = payDetailsLiveData.getResults();
         Realm realm = Realm.getDefaultInstance();
         List<PayDetail> payDetailList = realm.copyFromRealm(payDetails);
@@ -92,14 +91,14 @@ public class RightFragment extends Fragment {
             }
         });
 
+        // RecyclerView初期化
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerViewAdapter);
-
-        super.onViewCreated(view, savedInstanceState);
     }
 
+    // チェックした項目を削除
     @OnClick(R.id.removeButtonInRightTap) void removeCheckedItem() {
         payDetailViewModel.delete(currentSelectedItems);
     }

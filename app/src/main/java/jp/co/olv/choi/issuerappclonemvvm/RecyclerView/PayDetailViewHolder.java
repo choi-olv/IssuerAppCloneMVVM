@@ -27,7 +27,10 @@ public class PayDetailViewHolder extends ViewHolder {
     public PayDetailViewHolder(View itemView) {
         super(itemView);
         this.itemView = itemView;
+
+        // ButterKnife連携
         ButterKnife.bind(this, itemView);
+        // 別途リスナを登録するため、クリックイベントを無効化
         checkBox.setClickable(false);
     }
 

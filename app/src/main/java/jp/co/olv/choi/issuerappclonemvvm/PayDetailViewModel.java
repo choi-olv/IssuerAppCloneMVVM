@@ -10,12 +10,8 @@ import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
 
 public class PayDetailViewModel extends ViewModel {
 
-    private Realm realm;
+    private Realm realm = Realm.getDefaultInstance();
     private PayDetailRepository repository = new PayDetailRepository();
-
-    public PayDetailViewModel() {
-        realm = Realm.getDefaultInstance();
-    }
 
     public LiveRealmData<PayDetail> getAll(Integer postId) {
         return repository.getAll(realm, postId);
