@@ -1,6 +1,7 @@
 package jp.co.olv.choi.issuerappclonemvvm;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -35,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
                 .migration(new MyMigration())
                 .build());
 
+        // SharedPreferencesのリセット
+        SharedPreferences pref = getApplication().getSharedPreferences("pref",MODE_PRIVATE);
+        pref.edit().clear().commit();
+
         // ViewPagerとTabLayout初期化
         MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(fragmentPagerAdapter);
         // タブ切替時にキーボードが消えるようにする
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
                 if (getCurrentFocus() != null) {
@@ -48,14 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             }
-
-            @Override
-            public void onPageSelected(int i) {}
-
-            @Override
-            public void onPageScrollStateChanged(int i) {}
         });
         tabLayout.setupWithViewPager(viewPager);
-
     }
 }

@@ -24,10 +24,12 @@ import jp.co.olv.choi.issuerappclonemvvm.R;
 import jp.co.olv.choi.issuerappclonemvvm.RecyclerView.PayDetailRecyclerViewAdapter;
 import jp.co.olv.choi.issuerappclonemvvm.realm.LiveRealmData;
 import jp.co.olv.choi.issuerappclonemvvm.realm.PayDetail;
+import lombok.Getter;
 
 public class RightFragment extends Fragment {
 
     private PayDetailViewModel payDetailViewModel;
+    @Getter
     private List<PayDetail> currentSelectedItems = new ArrayList<>();
 
     @BindView(R.id.PayDetailRecyclerView)
@@ -50,7 +52,7 @@ public class RightFragment extends Fragment {
         // ViewModelのインスタンス生成
         payDetailViewModel = ViewModelProviders.of(this).get(PayDetailViewModel.class);
         // ViewModelから支払明細データのLiveDataを取得
-        LiveRealmData<PayDetail> payDetailsLiveData = payDetailViewModel.getAll(2);
+        LiveRealmData<PayDetail> payDetailsLiveData = payDetailViewModel.getAll(2, currentSelectedItems);
 
         // 支払明細データの更新を監視
         payDetailsLiveData.observe(this, new Observer<RealmResults<PayDetail>>() {
